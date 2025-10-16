@@ -1,0 +1,12 @@
+[
+  {"id":"txn_1","description":"Lunch at cafeteria","amount":12.50,"category":"Food","date":"2025-10-10","createdAt":"2025-10-10T12:00:00Z","updatedAt":"2025-10-10T12:00:00Z"},
+  {"id":"txn_2","description":"Chemistry textbook","amount":89.99,"category":"Books","date":"2025-10-09","createdAt":"2025-10-09T10:30:00Z","updatedAt":"2025-10-09T10:30:00Z"},
+  {"id":"txn_3","description":"Bus pass","amount":45.00,"category":"Transport","date":"2025-10-08","createdAt":"2025-10-08T09:15:00Z","updatedAt":"2025-10-08T09:15:00Z"},
+  {"id":"txn_4","description":"Coffee with friends","amount":8.75,"category":"Entertainment","date":"2025-10-12","createdAt":"2025-10-12T16:00:00Z","updatedAt":"2025-10-12T16:00:00Z"},
+  {"id":"txn_5","description":"Late dinner","amount":13.20,"category":"Food","date":"2025-10-13","createdAt":"2025-10-13T21:00:00Z","updatedAt":"2025-10-13T21:00:00Z"},
+  {"id":"txn_6","description":"Movie tickets","amount":18.00,"category":"Entertainment","date":"2025-10-11","createdAt":"2025-10-11T19:00:00Z","updatedAt":"2025-10-11T19:00:00Z"},
+  {"id":"txn_7","description":"Membership fee","amount":50.00,"category":"Fees","date":"2025-10-07","createdAt":"2025-10-07T08:00:00Z","updatedAt":"2025-10-07T08:00:00Z"},
+  {"id":"txn_8","description":"Stationery","amount":7.50,"category":"Books","date":"2025-10-08","createdAt":"2025-10-08T13:30:00Z","updatedAt":"2025-10-08T13:30:00Z"},
+  {"id":"txn_9","description":"Breakfast","amount":5.25,"category":"Food","date":"2025-10-14","createdAt":"2025-10-14T08:10:00Z","updatedAt":"2025-10-14T08:10:00Z"},
+  {"id":"txn_10","description":"Library fine","amount":2.00,"category":"Fees","date":"2025-10-13","createdAt":"2025-10-13T15:45:00Z","updatedAt":"2025-10-13T15:45:00Z"}
+]

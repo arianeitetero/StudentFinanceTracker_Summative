@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Finance Tracker</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/dashboard.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header role="banner">
+    <h1>Student Finance Tracker</h1>
+    <!-- my navigation bar -->
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#records">Transactions</a></li>
+        <li><a href="#add">Add/Edit</a></li>
+        <li><a href="#settings">Settings</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1">
+    <!-- Dashboard Section -->
+    <section id="dashboard" aria-labelledby="dashboard-heading">
+      <h2 id="dashboard-heading">Dashboard</h2>
+      <div id="stats" aria-live="polite"></div>
+      <!-- Simple text trend for last 7 days -->
+      <div id="trendText" class="trend-list" aria-label="Spending trend last 7 days"></div>
+      <div id="capStatus" role="status" aria-live="polite"></div>
+    </section>
+    <!-- Transactions Table Section -->
+    <section id="records" aria-labelledby="records-heading">
+      <h2 id="records-heading">Transactions</h2>
+      <div>
+        <label for="search">Live Regex Search:</label>
+        <input id="search" type="text" placeholder="e.g. coffee|tea" />
+        <label for="caseInsensitive">
+          <input type="checkbox" id="caseInsensitive" checked /> Case Insensitive
+        </label>
+      </div>
+      <div>
+        <button id="sortDate">Sort by Date</button>
+        <button id="sortDesc">Sort by Description</button>
+        <button id="sortAmt">Sort by Amount</button>
+      </div>
+      <div style="margin-top: 1rem;">
+        <button id="importJson">Import JSON</button>
+        <input type="file" id="importFile" accept="application/json" style="display:none" />
+        <button id="exportJson">Export JSON</button>
+      </div>
+      <table id="recordsTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <div id="cards"></div>
+    </section>
+    <!-- Add / Edit Transaction Form -->
+    <section id="add" aria-labelledby="add-heading">
+      <h2 id="add-heading">Add/Edit Transaction</h2>
+      <form id="txnForm" autocomplete="off">
+        <input type="hidden" id="txnId" />
+        <div>
+          <label for="desc">Description</label>
+          <input id="desc" name="desc" required aria-describedby="errDesc" />
+          <span class="error" id="errDesc" aria-live="assertive"></span>
+        </div>
+        <div>
+          <label for="amt">Amount</label>
+          <input id="amt" name="amt" type="number" step="0.01" required aria-describedby="errAmt" />
+          <span class="error" id="errAmt" aria-live="assertive"></span>
+        </div>
+        <div>
+          <label for="cat">Category</label>
+          <select id="cat" name="cat" required aria-describedby="errCat">
+            <option>Food</option>
+            <option>Books</option>
+            <option>Transport</option>
+            <option>Entertainment</option>
+            <option>Fees</option>
+            <option>Other</option>
+          </select>
+          <span class="error" id="errCat" aria-live="assertive"></span>
+        </div>
+        <div>
+          <label for="date">Date</label>
+          <input id="date" name="date" type="date" required aria-describedby="errDate" />
+          <span class="error" id="errDate" aria-live="assertive"></span>
+        </div>
+        <button type="submit">Save</button>
+        <button type="button" id="cancelEdit">Cancel</button>
+      </form>
+    </section>
+    <!-- Settings Section -->
+    <section id="settings" aria-labelledby="settings-heading">
+      <h2 id="settings-heading">Settings</h2>
+      <form id="settingsForm">
+        <div>
+          <label for="baseCurrency">Base Currency</label>
+          <select id="baseCurrency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+          </select>
+        </div>
+        <div>
+          <label for="currRates">Manual Exchange Rates (USD=1)</label>
+          <input id="currRates" placeholder='e.g. {"EUR":0.91,"GBP":0.78}' />
+        </div>
+        <div>
+          <label for="cap">Monthly Expense Cap</label>
+          <input id="cap" type="number" step="0.01" />
+        </div>
+        <div>
+          <label for="categories">Categories (comma separated)</label>
+          <input id="categories" />
+        </div>
+        <button type="submit">Save Settings</button>
+      </form>
+    </section>
+    <!-- About Section -->
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About</h2>
+      <p>
+        Hi! I'm <strong>Ariane Itetero</strong>, a Software Engineering student at the African Leadership University (ALU). 
+        I built this Student Finance Tracker to help fellow students take control of their finances and develop better spending habits.
+      </p>
+      <p>
+        Managing money as a student can be challenging, so I created this tool to make tracking expenses simple and intuitive. 
+        Whether you're budgeting for books, food, or entertainment, this tracker helps you stay on top of your financial goals.
+      </p>
+      <p>
+        Connect with me on <a href="https://github.com/arianeitetero" target="_blank" rel="noopener noreferrer">GitHub</a> 
+        or reach out at <a href="mailto:a.itetero@alustudent.com">a.itetero@alustudent.com</a>
+      </p>
+    </section>
+  </main>
+  <footer role="contentinfo">
+    &copy; 2025 Student Finance Tracker
+  </footer>
+  <script type="module" src="scripts/state.js"></script>
+  <script type="module" src="scripts/ui.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = Array.from(document.querySelectorAll('main > section'));
+      function showSection(id) {
+        sections.forEach(sec => {
+          if ('#' + sec.id === id) {
+            sec.style.display = '';
+            sec.setAttribute('aria-hidden', 'false');
+          } else {
+            sec.style.display = 'none';
+            sec.setAttribute('aria-hidden', 'true');
+          }
+        });
+      }
+      function navigate() {
+        let hash = window.location.hash || '#dashboard';
+        showSection(hash);
+      }
+      window.addEventListener('hashchange', navigate);
+      navigate();
+    });
+    </script>
+</body>
+</html>

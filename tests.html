@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Finance Tracker - Regex Validation Tests</title>
+  <style>
+    body { font-family: system-ui,sans-serif; background: #f6f8fa; color: #222; margin: 0; padding: 2em; }
+    h1 { margin-top: 0; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 2em; }
+    th, td { padding: 0.5em 1em; border: 1px solid #eee; }
+    th { background: #1e90ff; color: #fff; }
+    .pass { color: #2ecc40; font-weight: bold; }
+    .fail { color: #c0392b; font-weight: bold; }
+    input, button { font-size:1em; padding:0.3em; border-radius:4px; margin-right:0.5em; }
+    input[type="text"] { width: 340px; }
+    .test-row { transition: background 0.2s; }
+    .test-row.pass { background: #e6ffe6; }
+    .test-row.fail { background: #ffeaea; }
+    .desc { font-size: 0.95em; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Regex Validation Tests</h1>
+  <p class="desc">Live demo and edge cases for Student Finance Tracker regex patterns.<br>Use this page to verify validations for <strong>Description</strong>, <strong>Amount</strong>, <strong>Date</strong>, <strong>Category</strong>, and <strong>Duplicate Word</strong> (advanced).</p>
+
+  <section>
+    <h2>Description / Title <small>(No leading/trailing spaces, no duplicate word, collapse doubles)</small></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Input</th><th>Expected</th><th>Result</th>
+        </tr>
+      </thead>
+      <tbody id="desc-tests"></tbody>
+    </table>
+    <input type="text" id="desc-input" placeholder="Type your own description" />
+    <button onclick="runDescInput()">Test</button>
+    <span id="desc-live"></span>
+  </section>
+
+  <section>
+    <h2>Amount <small>(Valid currency, max 2 decimals, no negatives)</small></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Input</th><th>Expected</th><th>Result</th>
+        </tr>
+      </thead>
+      <tbody id="amt-tests"></tbody>
+    </table>
+    <input type="text" id="amt-input" placeholder="Type amount" />
+    <button onclick="runAmtInput()">Test</button>
+    <span id="amt-live"></span>
+  </section>
+
+  <section>
+    <h2>Date <small>(YYYY-MM-DD, valid range)</small></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Input</th><th>Expected</th><th>Result</th>
+        </tr>
+      </thead>
+      <tbody id="date-tests"></tbody>
+    </table>
+    <input type="text" id="date-input" placeholder="Type date" />
+    <button onclick="runDateInput()">Test</button>
+    <span id="date-live"></span>
+  </section>
+
+  <section>
+    <h2>Category <small>(Letters, spaces, hyphens only)</small></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Input</th><th>Expected</th><th>Result</th>
+        </tr>
+      </thead>
+      <tbody id="cat-tests"></tbody>
+    </table>
+    <input type="text" id="cat-input" placeholder="Type category" />
+    <button onclick="runCatInput()">Test</button>
+    <span id="cat-live"></span>
+  </section>
+
+  <section>
+    <h2>Advanced: Duplicate Word <small>(e.g. "coffee coffee")</small></h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Input</th><th>Expected</th><th>Result</th>
+        </tr>
+      </thead>
+      <tbody id="adv-tests"></tbody>
+    </table>
+    <input type="text" id="adv-input" placeholder="Type description to check for duplicate word" />
+    <button onclick="runAdvInput()">Test</button>
+    <span id="adv-live"></span>
+  </section>
+
+  <script>
+    const regexRules = {
+      description: /^\S(?:.*\S)?$/,
+      amount: /^(0|[1-9]\d*)(\.\d{1,2})?$/,
+      date: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/,
+      category: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/,
+      duplicateWord: /\b(\w+)\s+\1\b/
+    };
+
+    const descTests = [
+      ["Lunch at cafeteria", true],
+      ["  Leading space", false],
+      ["Trailing space ", false],
+      ["Double  space inside", true],
+      ["coffee coffee", false],
+      ["  ", false],
+      ["Valid description", true],
+      ["", false],
+      ["Book purchase", true]
+    ];
+    function runDescTests() {
+      const tb = document.getElementById("desc-tests");
+      tb.innerHTML = "";
+      descTests.forEach(([val, expected]) => {
+        let base = regexRules.description.test(val);
+        let adv = regexRules.duplicateWord.test(val);
+        let pass = base && !adv;
+        let tr = document.createElement("tr");
+        tr.className = "test-row " + (pass === expected ? "pass" : "fail");
+        tr.innerHTML = `<td>"${val}"</td>
+          <td>${expected ? "Pass" : "Fail"}</td>
+          <td>${pass ? '<span class="pass">Pass</span>' : '<span class="fail">Fail</span>'}${adv ? " (Duplicate word!)" : ""}</td>`;
+        tb.appendChild(tr);
+      });
+    }
+    function runDescInput() {
+      let v = document.getElementById("desc-input").value;
+      let base = regexRules.description.test(v);
+      let adv = regexRules.duplicateWord.test(v);
+      let pass = base && !adv;
+      let msg = pass ? "Valid" : "Invalid";
+      if (adv) msg += " (Duplicate word!)";
+      document.getElementById("desc-live").textContent = msg;
+      document.getElementById("desc-live").className = pass ? "pass" : "fail";
+    }
+
+    const amtTests = [
+      ["12", true],
+      ["0", true],
+      ["89.99", true],
+      ["12.345", false],
+      ["-5", false],
+      ["", false],
+      ["1000000", true],
+      ["45.00", true],
+      ["0.50", true],
+      ["2.1", true],
+      ["2.123", false]
+    ];
+    function runAmtTests() {
+      const tb = document.getElementById("amt-tests");
+      tb.innerHTML = "";
+      amtTests.forEach(([val, expected]) => {
+        let pass = regexRules.amount.test(val);
+        let tr = document.createElement("tr");
+        tr.className = "test-row " + (pass === expected ? "pass" : "fail");
+        tr.innerHTML = `<td>"${val}"</td>
+          <td>${expected ? "Pass" : "Fail"}</td>
+          <td>${pass ? '<span class="pass">Pass</span>' : '<span class="fail">Fail</span>'}</td>`;
+        tb.appendChild(tr);
+      });
+    }
+    function runAmtInput() {
+      let v = document.getElementById("amt-input").value;
+      let pass = regexRules.amount.test(v);
+      document.getElementById("amt-live").textContent = pass ? "Valid" : "Invalid";
+      document.getElementById("amt-live").className = pass ? "pass" : "fail";
+    }
+
+    const dateTests = [
+      ["2025-09-25", true],
+      ["2025-13-25", false],
+      ["2025-09-32", false],
+      ["2025-09-01", true],
+      ["2025-9-1", false],
+      ["2025-09-00", false],
+      ["2025-00-10", false],
+      ["abc", false],
+      ["2025-10-16", true]
+    ];
+    function runDateTests() {
+      const tb = document.getElementById("date-tests");
+      tb.innerHTML = "";
+      dateTests.forEach(([val, expected]) => {
+        let pass = regexRules.date.test(val);
+        let tr = document.createElement("tr");
+        tr.className = "test-row " + (pass === expected ? "pass" : "fail");
+        tr.innerHTML = `<td>"${val}"</td>
+          <td>${expected ? "Pass" : "Fail"}</td>
+          <td>${pass ? '<span class="pass">Pass</span>' : '<span class="fail">Fail</span>'}</td>`;
+        tb.appendChild(tr);
+      });
+    }
+    function runDateInput() {
+      let v = document.getElementById("date-input").value;
+      let pass = regexRules.date.test(v);
+      document.getElementById("date-live").textContent = pass ? "Valid" : "Invalid";
+      document.getElementById("date-live").className = pass ? "pass" : "fail";
+    }
+
+    const catTests = [
+      ["Food", true],
+      ["Books", true],
+      ["Transport", true],
+      ["Entertainment", true],
+      ["Fees", true],
+      ["Other", true],
+      ["Food-Drinks", true],
+      ["Food Drinks", true],
+      ["Food123", false],
+      ["Food!", false],
+      ["", false],
+      ["Food-", false],
+      ["-Food", false],
+      ["Food -- Drinks", false]
+    ];
+    function runCatTests() {
+      const tb = document.getElementById("cat-tests");
+      tb.innerHTML = "";
+      catTests.forEach(([val, expected]) => {
+        let pass = regexRules.category.test(val);
+        let tr = document.createElement("tr");
+        tr.className = "test-row " + (pass === expected ? "pass" : "fail");
+        tr.innerHTML = `<td>"${val}"</td>
+          <td>${expected ? "Pass" : "Fail"}</td>
+          <td>${pass ? '<span class="pass">Pass</span>' : '<span class="fail">Fail</span>'}</td>`;
+        tb.appendChild(tr);
+      });
+    }
+    function runCatInput() {
+      let v = document.getElementById("cat-input").value;
+      let pass = regexRules.category.test(v);
+      document.getElementById("cat-live").textContent = pass ? "Valid" : "Invalid";
+      document.getElementById("cat-live").className = pass ? "pass" : "fail";
+    }
+
+    const advTests = [
+      ["coffee coffee", true],
+      ["Lunch at cafeteria", false],
+      ["Movie movie tickets", true],
+      ["Bus pass", false],
+      ["Book Book Book", true],
+      ["Tea and tea", false],
+      ["Tea Tea", true],
+      ["", false]
+    ];
+    function runAdvTests() {
+      const tb = document.getElementById("adv-tests");
+      tb.innerHTML = "";
+      advTests.forEach(([val, expected]) => {
+        let pass = regexRules.duplicateWord.test(val);
+        let tr = document.createElement("tr");
+        tr.className = "test-row " + (pass === expected ? "pass" : "fail");
+        tr.innerHTML = `<td>"${val}"</td>
+          <td>${expected ? "Pass" : "Fail"}</td>
+          <td>${pass ? '<span class="pass">Duplicate found</span>' : '<span class="pass">No duplicate</span>'}</td>`;
+        tb.appendChild(tr);
+      });
+    }
+    function runAdvInput() {
+      let v = document.getElementById("adv-input").value;
+      let pass = regexRules.duplicateWord.test(v);
+      document.getElementById("adv-live").textContent = pass ? "Duplicate found" : "No duplicate";
+      document.getElementById("adv-live").className = pass ? "fail" : "pass";
+    }
+
+    runDescTests();
+    runAmtTests();
+    runDateTests();
+    runCatTests();
+    runAdvTests();
+  </script>
+</body>
+</html>

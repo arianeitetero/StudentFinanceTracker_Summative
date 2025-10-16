@@ -1,0 +1,42 @@
+#stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  #stats div {
+    background: #f0f8ff;
+    border-radius: 8px;
+    padding: 1rem;
+    min-width: 250px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(30, 144, 255, 0.06);
+    transition: transform 0.3s;
+  }
+  
+  #stats div:hover {
+    transform: scale(1.05);
+  }
+  
+  #capStatus {
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #3498db;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background: #e3f2fd;
+    transition: all 0.3s;
+  }
+  
+  #capStatus.over {
+    color: #e74c3c;
+    background: #ffd6d6;
+  }
+    .trend-list {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+  }
