@@ -1,81 +1,72 @@
------Student Finance Tracker------
+# Student Finance Tracker
 
-A simple web app to help students track expenses, budgets, and spending habits.
-Built with HTML, CSS, and JavaScript.
+A web app to help students track expenses, budgets, and spending trends.  
+Built with **HTML**, **CSS**, and **JavaScript**.
 
-Features
+---
 
--Responsive layout for phone, tablet, and desktop
+## Chosen Theme
 
--Add, edit, and delete transactions
+**Student Finance Tracker** – manage your personal student finances, track transactions, and see spending trends.
 
--Dashboard with totals, top category, and weekly summary
+---
 
--Live search and sorting
+## Features
 
--Data saved using LocalStorage
+- Add, edit, and delete transactions  
+- Dashboard with totals, top category, and last 7 days trend  
+- Live search and sorting  
+- Data saved in LocalStorage  
+- Import/export JSON data  
+- Settings for categories and currency  
+- Mobile-first responsive design  
+- Keyboard and screen reader accessible  
 
--Import and export data as JSON
+---
 
--Settings for categories and currency
+## Regex Catalog
 
--Keyboard and screen reader accessible
+| Field        | Pattern                                      | Example                  |
+|--------------|----------------------------------------------|--------------------------|
+| Description  | `/^\S(?:.*\S)?$/`                            | "Lunch at cafeteria"     |
+| Amount       | `/^(0|[1-9]\d*)(\.\d{1,2})?$/`              | "12.34", "0"             |
+| Date         | `/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/` | "2025-09-28"       |
+| Category     | `/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/`           | "Food", "Entertainment"  |
+| Advanced     | `/\b(\w+)\s+\1\b/` (duplicate words)        | "coffee coffee"          |
 
-How to Run
+---
 
-You must open the app through a local server (not by double-clicking index.html).
+## Keyboard Map
 
-Option 1 – Python
+| Action                    | Key                     |
+|----------------------------|------------------------|
+| Move focus between fields  | Tab / Shift + Tab      |
+| Submit form                | Enter                  |
+| Cancel edit                | Esc                    |
+| Skip to main content       | Alt + S                |
+| Sort/select (where available) | Arrow keys           |
+
+---
+
+## Accessibility Notes
+
+- Semantic HTML5 landmarks (`header`, `nav`, `main`, `section`, `footer`)  
+- Proper heading hierarchy  
+- All inputs have labels bound via `for` and `id`  
+- Visible focus outlines for keyboard users  
+- Skip to content link for quick navigation  
+- ARIA live regions for error/status messages and dashboard updates  
+- Works fully with keyboard navigation  
+- Color contrast checked for WCAG AA/AAA  
+
+---
+
+## How to Run the App Locally
+
+> **Important:** Do **not** open `index.html` directly. Use a local server.
+
+### Option 1 – Python
+1. Open terminal in project folder  
+2. Run:
+```bash
 python -m http.server 8000
-Then go to http://localhost:8000/index.html
-
-Option 2 – VS Code Live Server
-
-Install the Live Server extension
-
-Right-click index.html → “Open with Live Server”
-
-Option 3 – Node.js
-npx serve .
-
-Sample Data
-
-Open the app.
-
-Go to Settings → Import JSON.
-
-Select seed.json to load demo transactions.
-
-Project Files
-
-index.html
-styles/
-scripts/
-assets/
-seed.json
-tests.html
-README.md
-
-Testing Regex
-
-Open tests.html in your browser and try different inputs.
-Green means valid, red means invalid.
-
-Accessibility
-
-Semantic HTML structure
-
-Visible focus outlines
-
-Labels for all inputs
-
-ARIA messages for errors and updates
-
-Works fully with keyboard navigation
-
-
-Contact
-
-GitHub: https://github.com/arianeitetero
-
-Email: a.itetero@alustudent.com
