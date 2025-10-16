@@ -3,7 +3,7 @@
 A web app to help students track expenses, budgets, and spending trends.  
 Built with **HTML**, **CSS**, and **JavaScript**.
 
-
+---
 
 ## Live Demo
 
@@ -15,7 +15,12 @@ You can see the app live on GitHub Pages:
 All project files are available on GitHub:  
 [Student Finance Tracker Repo](https://github.com/arianeitetero/StudentFinanceTracker_Summative)
 
+## Demo Video
 
+Watch a short demo of the app here:  
+[Student Finance Tracker YouTube Demo](https://youtu.be/DiF2_o4mGPA)
+
+---
 
 ## Chosen Theme
 
