@@ -13,7 +13,20 @@
     margin: 0 auto;
     padding: 0 1rem;
   }
-  
+  #alert {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    min-width: 220px;
+    max-width: 70vw;
+    text-align: center;
+    font-size: 1.1em;
+    pointer-events: none;
+    opacity: 0.98;
+    transition: opacity 0.3s;
+  }
   .skip-link {
     position: absolute;
     top: -40px;
